@@ -90,7 +90,7 @@ function Game({setNotified}: {setNotified: (_: boolean) => void}) {
         return <SuperWrappedLoadingStrawberry />;
     }
 
-    const disabled = (buzzVersion == strawberryGame.stateVersion);
+    const disabled = (buzzVersion === strawberryGame.stateVersion);
 
     const go = (buzzed: string | null) => {
         setBuzzVersion(strawberryGame.stateVersion);

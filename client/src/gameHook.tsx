@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { delay, deepEqual } from './utils';
+import { delay } from './utils';
 import { RoomState } from './gameState';
 import {callCommit, callList} from './gameAPI';
 

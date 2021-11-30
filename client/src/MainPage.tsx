@@ -11,7 +11,6 @@ function MainPage({isLoggedIn, setUsername, createGame, changeFruit}: {
     createGame: createGameFn,
     changeFruit: () => void,
 }) {
-    const fruitEmoji = useContext(FruitEmojiContext);
     return (
         <div className='mainContainer'>
             <div className='mainPageContent'>
