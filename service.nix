@@ -16,7 +16,7 @@ in {
     description = "bzzzzzz";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    environment.RUST_BACKTRACE = "1";
+    environment.RUST_BACKTRACE = "full";
     serviceConfig = {
       ExecStart = "${build.server}/bin/globby ${cfg.listen} /etc/beeee/client /var/lib/beeee";
       StandardOutput = "syslog";
