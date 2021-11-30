@@ -23,7 +23,7 @@ yarn2nix.mkYarnPackage {
   '';
   installPhase = ''
     mkdir $out
-    cp -r deps/client/build/{index.html,favicon*.ico,robots.txt,static} $out/
+    cp -r deps/client/build/{index.html,robots.txt,static} $out/
     for map in deps/client/build/static/js/*.map; do
       jq -c '.sources |= map (sub(".*/node_modules"; "node_modules"))' < $map > $out/static/js/$(basename $map)
     done
