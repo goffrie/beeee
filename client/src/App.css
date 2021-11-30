@@ -1,0 +1,493 @@
+/* SHARED STYLES */
+.loadingStrawberry {
+  animation: rotate 2s infinite linear;
+  filter: grayscale(100%);
+  font-size: 50px;
+}
+
+.bigText {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.strawberryInputBig {
+  height: 40px;
+  line-height: 1;
+  font-size: 40px;
+  width: 320px;
+
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.strawberryInputSmall {
+  text-align: center;
+  width: 20px;
+  margin-left: 5px;
+  margin-top: -5px;
+  font-size: 16px;
+}
+
+.strawberryInput {
+  border: 2px solid #D20B0B;
+  outline: none;
+}
+
+.strawberryInput:focus {
+  border: 2px solid #19AF00;
+}
+
+/* reset default styles on buttons */
+button {
+  background: none;
+  border: 0 none;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  outline: none;
+  padding: 0px;
+}
+
+.strawberryButton {
+  display: block;
+  box-sizing: border-box;
+  font-size: 40px;
+  height: 65px;
+  border: 2px solid #D20B0B;
+  margin-bottom: 20px;
+  cursor: pointer;
+  width: 330px;  /* so it doesn't change width on italicise */
+  text-align: center;
+}
+
+.strawberryButton:hover, .strawberryButton:focus {
+  border: 2px solid #19AF00;
+  font-style: italic;
+}
+
+.strawberryLinkButtonDisabled {
+  background: none;
+  border: none;
+  border-bottom: 2px solid #777777;
+  cursor: default;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.strawberryLinkButton {
+  border-bottom: 2px solid #D20B0B;
+  cursor: pointer;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.strawberryLinkButton:hover, .strawberryLinkButton:focus {
+  border-bottom: 2px solid #19AF00;
+  font-style: italic;
+}
+
+.strawberryCenter {
+  text-align: center;
+}
+
+.flexCenterContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.flexColumnContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex {
+  display: flex;
+}
+
+.flexAlignRight {
+  flex: auto;
+  text-align: right;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.italics {
+  font-style: italic;
+}
+
+/* MAIN PAGE STYLES */
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+}
+
+.mainPageContent {
+  text-align: center;
+  font-size: 40px;
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mainPageControl {
+  min-height: 250px;
+}
+
+.mainPageAttribution {
+  font-size: 10px;
+  flex-grow: 0;
+  margin: 10px;
+}
+
+.logOut, .enableNotifications {
+  margin: 15px;
+  font-size: 15px;
+}
+
+.bigStrawberry {
+  font-size: 120px;
+  user-select: none;
+  cursor: pointer;
+  width: fit-content;
+  align-self: center;
+}
+
+.wordLengthControl {
+  font-size: 25px;
+}
+
+.wordLengthSelect {
+  height: 40px;
+  line-height: 35px; /* make it more vertically centered */
+  padding: 0px 10px 0px 11px;  /* make it more centered looking */
+  border: 2px solid #D20B0B;
+  font-size: 25px;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  outline: none;
+  background-color: white;
+  margin-right: 5px;
+  text-align: center;
+}
+
+.wordLengthSelect:active, .wordLengthSelect:focus {
+  border: 2px solid #19AF00;
+}
+
+/* GAME COMPONENT STYLES */
+
+.displayNumberOrLetter {
+  min-width: 25px; /* preserve roundness in case of flexbox-flexing */
+  width: 25px;
+  height: 25px;
+  line-height: 23px;
+  font-size: 16px;
+  border-radius: 50%;
+  border: 1px solid black;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* TODO: improve card styling, inc button hover */
+
+.card {
+  margin: 5px;
+  width: 55px;
+  height: 75px;
+  line-height: 75px;
+  font-size: 50px;
+  color: black;
+  text-align: center;
+  border: 2px solid #BABABA;
+  border-radius: 5px;
+}
+
+.cardActive {
+    border-color: #777777;
+}
+
+.cardButton {
+  cursor: pointer;
+  border-color: #D20B0B;
+  /* Prevent double taps from zooming */
+  touch-action: manipulation;
+}
+
+.cardButton:hover {
+  border-color: #19AF00;
+}
+
+.cardWithPlayerNumber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+}
+
+.cardGuessed {
+  color: #777777;
+}
+
+.cardGuessable {
+  cursor: text;
+  border-color: #D20B0B;
+  outline: none;
+}
+
+.cardGuessable:hover, .cardGuessable:focus {
+  border-color: #19AF00;
+}
+
+.cardStrawberry {
+  font-size: 25px;
+}
+
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cardWithTypedLetter {
+  line-height: 35px;
+}
+
+.cardBadWildcard {
+  /* TODO(lennart) improve this styling */
+  opacity: 0.4;
+}
+
+.typedLetter {
+  font-size: 35px;
+}
+
+
+/* GAME LAYOUT STYLES */
+
+.gameContainer {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#buzzer {
+  margin: 50px;
+  font-size: 50px;
+}
+
+#unbuzz {
+  text-decoration: line-through 4px solid #D20B0B;
+}
+
+.gameSidebar {
+  height: 100%;
+  flex: none;
+  overflow: auto;
+}
+
+.gameSidebarPlayers {
+  border-right: 2px solid #BABABA;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-grow: 0;
+  flex-basis: min-content;
+}
+
+.bonuses {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gameSidebarNotes {
+  overflow: hidden;
+}
+
+.gameSidebarNotesHandle {
+  width: 3px;
+  height: 60px;
+  margin-left: 5px;
+  border: solid #E1E1E1;
+  border-width: 0px 2px;
+  cursor: col-resize;
+  align-self: center;
+}
+
+.gameStartMainContent {
+  text-align: center;
+  font-size: 30px;
+}
+
+.gameStartWordErrorMessage {
+  height: 15px;
+  font-size: 15px;
+  line-height: 15px;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.dummyAnnotation {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+/*
+The box containing the hint log.
+This element is a flex item in the flexbox that defines the entire page's viewport.
+This element uses ScrollableFeed, so it cannot take padding.
+*/
+.hintLogContainer {
+  height: 100%;
+  flex: auto;
+  border-right: 2px solid #BABABA;
+}
+
+/* An intermediate element to add some padding inside of the hintLogContainer. */
+.hintLogContent {
+  padding: 20px;
+  max-width: 850px;
+
+  line-height: 1.4;
+}
+
+.hintLogEntry:not(:first-child) {
+  /* put some spacing between hint log entries */
+  margin-top: 40px;
+}
+.hintLogTitle {
+  font-size: 25px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.hintLogLine {
+  margin-bottom: 5px;
+}
+
+.correct {
+  color: #19AF00;
+}
+.incorrect {
+  color: #D20B0B;
+}
+
+.you {
+  color: #777777;
+}
+
+.playerName {
+  font-weight: 600;
+}
+
+.hintLogGuessBox {
+  border: 2px solid #D20B0B;
+  padding: 10px 0px 10px 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  overflow-x: auto; /* awwww yeah side scrolling */
+  display: flex;
+  max-width: 850px;
+  box-sizing: border-box;
+  cursor: text;
+  outline: none;
+}
+
+.hintLogGuessBox:hover, .hintLogGuessBox:focus {
+  border: 2px solid #19AF00;
+}
+
+.hintLogGuessBoxClear {
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+/* TODO: why does it scroll a little bit? */
+.notesBox {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  padding: 20px;
+  padding-left: 8px;
+  box-sizing: border-box;
+  border: none;
+  resize: none;
+  font-size: 16px;
+  line-height: 20px; /* so inserting emojis doesnt change line height */
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+@media only screen and (max-width: 850px) {
+  .gameContainer {
+    height: auto;
+  }
+  body {
+    font-size: 25px;
+    text-size-adjust: none;
+  }
+  .mainPageAttribution {
+    font-size: 20px;
+  }
+  .gameSidebarPlayers, .gameSidebarNotes, .gameSidebarNotesHandle {
+    display: none;
+  }
+  .gameContainer > .flexCenterContainer {
+    height: 100vh;
+  }
+  .hintLogContainer {
+    border: none;
+    height: auto;
+  }
+  .stagedHintActions {
+    flex-direction: column;
+  }
+  .stagedHintActions .flexAlignRight /* hax */ {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+  .stagedHintActions button, .resolveAction button {
+    height: 80px;
+  }
+  .resolveAction {
+    flex-direction: column;
+  }
+  .resolveAction .or {
+    /* hide the slash */
+    display: none;
+  }
+  .resolveAction form {
+    margin-top: 10px;
+  }
+  .resolveAction .strawberryInputSmall {
+    font-size: 40px;
+    height: 80px;
+    width: 80px;
+  }
+  .inlineHandGuess {
+    display: block;
+    font-size: 40px;
+    height: 80px;
+    width: 80px;
+    margin: 15px 0 0 10px;
+  }
+}
