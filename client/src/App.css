@@ -294,6 +294,7 @@ button {
 #buzzer {
   margin: 50px;
   font-size: 50px;
+  height: 70px;
 }
 
 #unbuzz {
