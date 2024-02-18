@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 
 import { SuperWrappedLoadingStrawberry } from './LoadingStrawberry';
 import { FRUIT, FruitEmojiContext, FRUIT_NAMES } from './Fruit';
@@ -9,6 +9,8 @@ import { useStrawberryGame, StrawberryGameProvider, UsernameContext } from './ga
 
 import './App.css';
 import { useLocalStorage } from './localStorage';
+import useSound from 'use-sound';
+import beeSfx from './bee.mp3';
 
 const USERNAME_KEY: string = 'username';
 const FRUIT_KEY: string = 'fruit';
@@ -84,6 +86,41 @@ function Game({setNotified}: {setNotified: (_: boolean) => void}) {
     const { username } = useContext(UsernameContext)!;
     const fruitEmoji = useContext(FruitEmojiContext)!;
     const [buzzVersion, setBuzzVersion] = useState(-1);
+    const [play] = useSound(beeSfx);
+
+    useEffect(() => {
+        if (strawberryGame?.gameState.buzzed) {
+            console.log(`buzzed: ${strawberryGame?.gameState.buzzed}`);
+            play();
+        }
+    }, [strawberryGame?.gameState.buzzed, play]);
+    useEffect(() => {
+        setNotified(strawberryGame?.gameState.buzzed != null);
+    }, [strawberryGame?.gameState.buzzed, setNotified]);
+
+    const go = useCallback((buzzed: string | null) => {
+        if (strawberryGame != null && (buzzed == null) !== (strawberryGame.gameState.buzzed == null)) {
+            setBuzzVersion(strawberryGame.stateVersion);
+            const abortController = new AbortController();
+            strawberryGame.setGameState({buzzed}, abortController.signal);
+        }
+    }, [strawberryGame]);
+    const buzz = useCallback(() => go(username), [go, username]);
+    const unbuzz = useCallback(() => go(null), [go]);
+
+    useEffect(() => {
+        const listener = (e: KeyboardEvent) => {
+            if (e.key === 'Backspace') {
+                unbuzz();
+            } else if (e.key === ' ') {
+                buzz();
+            }
+        };
+        window.addEventListener('keydown', listener, false);
+        return () => {
+            window.removeEventListener('keydown', listener, false);
+        };
+    }, [unbuzz, buzz]);
 
     // Game state is null if game doesnt exist or still loading.
     if (strawberryGame === null) {
@@ -92,24 +129,11 @@ function Game({setNotified}: {setNotified: (_: boolean) => void}) {
 
     const disabled = (buzzVersion === strawberryGame.stateVersion);
 
-    const go = (buzzed: string | null) => {
-        setBuzzVersion(strawberryGame.stateVersion);
-        const abortController = new AbortController();
-        strawberryGame.setGameState({buzzed}, abortController.signal);
-    };
-    const buzz = () => go(username);
-    const unbuzz = () => go(null);
-
-    if (strawberryGame.gameState.buzzed != null) {
-        return <div className='gameContainer'>
-            <div id='buzzer'>{strawberryGame.gameState.buzzed}</div>
-            <button className='strawberryButton' id='unbuzz' onClick={unbuzz} disabled={disabled}>{fruitEmoji}</button>
-        </div>;
-    } else {
-        return <div className='gameContainer'>
-            <button className='strawberryButton' id='buzz' onClick={buzz} disabled={disabled}>{fruitEmoji}</button>
-        </div>;
-    }
+    return <div className='gameContainer'>
+        <div className='buzzer' id='buzzer'>{strawberryGame.gameState.buzzed != null && strawberryGame.gameState.buzzed}</div>
+        <button className='strawberryButton' id='buzz' onClick={buzz} disabled={disabled || strawberryGame.gameState.buzzed != null}>{fruitEmoji}</button>
+        <button className='strawberryButton' id='unbuzz' onClick={unbuzz} disabled={disabled || strawberryGame.gameState.buzzed == null}>{fruitEmoji}</button>
+    </div>;
 }
 
 export default App;

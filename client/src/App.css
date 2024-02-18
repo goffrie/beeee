@@ -68,7 +68,12 @@ button {
   text-align: center;
 }
 
-.strawberryButton:hover, .strawberryButton:focus {
+.strawberryButton:disabled {
+  border: 2px solid #777777;
+  cursor: unset;
+}
+
+.strawberryButton:not(:disabled):hover, .strawberryButton:not(:disabled):focus {
   border: 2px solid #19AF00;
   font-style: italic;
 }
@@ -294,6 +299,7 @@ button {
 #buzzer {
   margin: 50px;
   font-size: 50px;
+  height: 70px;
 }
 
 #unbuzz {
