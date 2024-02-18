@@ -93,8 +93,10 @@ function Game({setNotified}: {setNotified: (_: boolean) => void}) {
             console.log(`buzzed: ${strawberryGame?.gameState.buzzed}`);
             play();
         }
-        setNotified(strawberryGame?.gameState.buzzed != null);
     }, [strawberryGame?.gameState.buzzed, play]);
+    useEffect(() => {
+        setNotified(strawberryGame?.gameState.buzzed != null);
+    }, [strawberryGame?.gameState.buzzed, setNotified]);
 
     const go = useCallback((buzzed: string | null) => {
         if (strawberryGame != null && (buzzed == null) !== (strawberryGame.gameState.buzzed == null)) {
