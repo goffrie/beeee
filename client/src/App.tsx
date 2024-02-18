@@ -110,7 +110,7 @@ function Game({setNotified}: {setNotified: (_: boolean) => void}) {
         const listener = (e: KeyboardEvent) => {
             if (e.key === 'Backspace') {
                 unbuzz();
-            } else {
+            } else if (e.key === ' ') {
                 buzz();
             }
         };
