@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 
 import { SuperWrappedLoadingStrawberry } from './LoadingStrawberry';
 import { FRUIT, FruitEmojiContext, FRUIT_NAMES } from './Fruit';
@@ -89,25 +89,36 @@ function Game({setNotified}: {setNotified: (_: boolean) => void}) {
     const [play] = useSound(beeSfx);
 
     useEffect(() => {
+        if (strawberryGame?.gameState.buzzed) {
+            console.log(`buzzed: ${strawberryGame?.gameState.buzzed}`);
+            play();
+        }
+        setNotified(strawberryGame?.gameState.buzzed != null);
+    }, [strawberryGame?.gameState.buzzed, play]);
+
+    const go = useCallback((buzzed: string | null) => {
+        if (strawberryGame != null && (buzzed == null) !== (strawberryGame.gameState.buzzed == null)) {
+            setBuzzVersion(strawberryGame.stateVersion);
+            const abortController = new AbortController();
+            strawberryGame.setGameState({buzzed}, abortController.signal);
+        }
+    }, [strawberryGame]);
+    const buzz = useCallback(() => go(username), [go, username]);
+    const unbuzz = useCallback(() => go(null), [go]);
+
+    useEffect(() => {
         const listener = (e: KeyboardEvent) => {
             if (e.key === 'Backspace') {
-                (document.querySelector('#unbuzz') as HTMLElement)?.click();
+                unbuzz();
             } else {
-                (document.querySelector('#buzz')as HTMLElement)?.click();
+                buzz();
             }
         };
         window.addEventListener('keydown', listener, false);
         return () => {
             window.removeEventListener('keydown', listener, false);
         };
-    });
-
-    useEffect(() => {
-        if (strawberryGame?.gameState.buzzed) {
-            console.log(`buzzed: ${strawberryGame?.gameState.buzzed}`);
-            play();
-        }
-    }, [strawberryGame?.gameState.buzzed, play]);
+    }, [unbuzz, buzz]);
 
     // Game state is null if game doesnt exist or still loading.
     if (strawberryGame === null) {
@@ -115,14 +126,6 @@ function Game({setNotified}: {setNotified: (_: boolean) => void}) {
     }
 
     const disabled = (buzzVersion === strawberryGame.stateVersion);
-
-    const go = (buzzed: string | null) => {
-        setBuzzVersion(strawberryGame.stateVersion);
-        const abortController = new AbortController();
-        strawberryGame.setGameState({buzzed}, abortController.signal);
-    };
-    const buzz = () => go(username);
-    const unbuzz = () => go(null);
 
     return <div className='gameContainer'>
         <div className='buzzer' id='buzzer'>{strawberryGame.gameState.buzzed != null && strawberryGame.gameState.buzzed}</div>
