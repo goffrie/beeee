@@ -1,8 +1,8 @@
+{ client, server }:
 { config, pkgs, ... }:
 with pkgs.lib;
 let
   cfg = config.services.beeee;
-  build = import ./build.nix {};
 in {
   options.services.beeee = {
     listen = mkOption {
@@ -11,14 +11,14 @@ in {
       description = "The address on which to listen";
     };
   };
-  config.environment.etc."beeee/client".source = "${build.client}";
+  config.environment.etc."beeee/client".source = "${client}";
   config.systemd.services.beeee = {
     description = "bzzzzzz";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     environment.RUST_BACKTRACE = "1";
     serviceConfig = {
-      ExecStart = "${build.server}/bin/globby ${cfg.listen} /etc/beeee/client /var/lib/beeee";
+      ExecStart = "${server}/bin/globby ${cfg.listen} /etc/beeee/client /var/lib/beeee";
       StandardOutput = "syslog";
       StandardError = "syslog";
       SyslogIdentifier = "beeee";
