@@ -68,22 +68,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1728538411,
-        "narHash": "sha256-f0SBJz1eZ2yOuKUr5CA9BHULGXVSn6miBuUWdTyhUhU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b69de56fac8c2b6f8fd27f2eca01dcda8e0a4221",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -93,7 +77,10 @@
     },
     "rust-overlay": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": [
+          "strawberry",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1735352767,
@@ -116,11 +103,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1735358283,
-        "narHash": "sha256-uyRVK3mXMlIiNKN6iJJQ52PvDRELaVbyR6BVmnkR4RY=",
+        "lastModified": 1735439662,
+        "narHash": "sha256-cGskQCD8WBcq3CdccydPobv/4l2pAtqEK/1YtdG6YaM=",
         "owner": "goffrie",
         "repo": "strawberry",
-        "rev": "ea06f2010328dd539c3ab4f6604fc6e0d096414c",
+        "rev": "fb00afcc496e48401de433ec01db827c58a724dd",
         "type": "github"
       },
       "original": {
